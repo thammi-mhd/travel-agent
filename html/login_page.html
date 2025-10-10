@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In</title>
+    <link rel="stylesheet" href="../css/signin.css" />
+  </head>
+  <body>
+    <div class="main-div">
+      <div class="login-card">
+        <div class="card-header">
+          <div class="log">Login</div>
+        </div>
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input required name="email" id="email" type="email" />
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input required name="password" id="password" type="password" />
+          </div>
+          <div>
+            <p>Forgot <a href="passForgot.html">Password</a>?</p>
+          </div>
+          <div class="form-group">
+            <input value="Login" type="submit" />
+          </div>
+          <div>
+            <p>Don't have an account? <a href="signup.html">SignUp</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="../script/signinjs.js"></script>
+  </body>
+</html>

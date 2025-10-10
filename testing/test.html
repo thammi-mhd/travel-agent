@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Photo Slider</title>
+    <style>
+      .photo-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: #222;
+        padding: 20px;
+      }
+
+      .left-chevron-img,
+      .right-chevron-img {
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+      }
+
+      .photo-profile {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="photo-container">
+      <button class="left-chevron">
+        <img src="../images/left-chevron.png" alt="" class="left-chevron-img" />
+      </button>
+
+      <!-- This will show the currently selected image -->
+      <div id="profile-photos"></div>
+
+      <button class="right-chevron">
+        <img src="../images/chevron.png" alt="" class="right-chevron-img" />
+      </button>
+    </div>
+
+    <script>
+      // Array of profile photo sources
+      const photos = [
+        "../images/man (1).png",
+        "../images/man.png",
+        "../images/man-avatar.png",
+        "../images/woman (1).png",
+        "../images/woman (2).png",
+        "../images/woman.png",
+      ];
+
+      let currentIndex = 0;
+
+      const photoContainer = document.getElementById("profile-photos");
+      const leftChevron = document.querySelector(".left-chevron");
+      const rightChevron = document.querySelector(".right-chevron");
+
+      // Function to render the current image
+      function renderPhoto() {
+        photoContainer.innerHTML = `<img src="${photos[currentIndex]}" class="photo-profile" alt="Profile">`;
+      }
+
+      // Show first image initially
+      renderPhoto();
+
+      // Event listeners for arrows
+      leftChevron.addEventListener("click", () => {
+        currentIndex = (currentIndex - 1 + photos.length) % photos.length;
+        renderPhoto();
+      });
+
+      rightChevron.addEventListener("click", () => {
+        currentIndex = (currentIndex + 1) % photos.length;
+        renderPhoto();
+      });
+    </script>
+  </body>
+</html>

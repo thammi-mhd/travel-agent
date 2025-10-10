@@ -1,0 +1,153 @@
+body {
+  background-image: url("../images/abstract-networking-concept-still-life-arrangement.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  font-family: Arial, sans-serif;
+}
+
+/* Header */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  padding: 10px 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 999;
+  height: 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.logo a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-size: 24px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-size: 16px;
+  padding: 10px;
+  border: solid 0.5px rgba(255, 255, 255, 0.262);
+  border-radius: 6px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Main section fixed height */
+main {
+  padding-top: 0;
+  margin: 0;
+  height: 100%; /* full height minus header */
+  overflow: hidden; /* prevent main from scrolling */
+  color: white;
+}
+
+/* Split container for side-by-side sections */
+.split-container {
+  display: flex;
+  height: 100%;
+}
+
+/* Both sections */
+.about-us,
+.about-me {
+  flex: 1;
+  overflow-y: auto; /* independent scroll */
+  padding: 60px 40px;
+  margin-top: 50px;
+  box-sizing: border-box;
+  background-color: rgba(33, 32, 32, 0.5); /* same background */
+  backdrop-filter: blur(3px);
+}
+
+.about-us {
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+/* Headings and text */
+.about-us h5,
+.about-me h5 {
+  letter-spacing: 3px;
+  font-size: 13px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.about-us h1,
+.about-me h1 {
+  font-size: 36px;
+  font-weight: 300;
+  margin-bottom: 25px;
+}
+
+.about-us p,
+.about-me p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 20px;
+  max-width: 550px;
+}
+
+.about-us a,
+.about-me a {
+  display: inline-block;
+  padding: 12px 30px;
+  border: solid 0.5px rgba(255, 255, 255, 0.262);
+  border-radius: 6px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.about-us a:hover,
+.about-me a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Scrollbar styling */
+.about-us::-webkit-scrollbar,
+.about-me::-webkit-scrollbar {
+  width: 8px;
+}
+
+.about-us::-webkit-scrollbar-thumb,
+.about-me::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+/* Responsive stacking on small screens */
+@media (max-width: 768px) {
+  .split-container {
+    flex-direction: column;
+  }
+}

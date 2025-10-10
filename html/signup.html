@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Account</title>
+    <link rel="stylesheet" href="../css/signup.css" />
+  </head>
+  <body>
+    <div class="main-div">
+      <div class="login-card">
+        <div class="card-header">
+          <div class="log">Welcome to <strong>Travel Agent</strong><br /></div>
+          
+        </div>
+        <form id="signupForm" /* action="signin.html" */>
+          <div class="form-full">
+            <div id="">please Fill the Form to continue</div>
+            <div class="form-group">
+            <label for="email">Email:</label>
+            <input
+              required
+              name="email"
+              id="email"
+              type="email"
+              placeholder="Enter your email"
+              class="email-input"
+            />
+            <div id="email-error" class="error-text"></div>
+          </div>
+          <div class="otp-grp">
+            <button type="button" class="otp-btn">Send OTP</button>
+            <div id="otp-container" class="otp-container"></div>
+          </div>
+          <p>Already Have an account? <a href="login_page.html">Login</a></p>
+          </div>
+
+
+            </div>
+          
+          
+        </form>
+      </div>
+    </div>
+
+    <script src="../script/signup.js"></script>
+  </body>
+</html>

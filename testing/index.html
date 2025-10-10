@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OTP Example with Backend</title>
+    <style>
+      label,
+      input,
+      button {
+        display: block;
+        margin-top: 10px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      button {
+        cursor: pointer;
+        padding: 8px;
+        margin-top: 15px;
+      }
+      #password-error {
+        color: #f88;
+        min-height: 18px;
+        margin-top: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <form
+      id="signupForm"
+      style="
+        background: #222;
+        color: #eee;
+        padding: 20px;
+        max-width: 400px;
+        margin: auto;
+      "
+    >
+      <label for="email">Email:</label>
+      <input id="email" type="email" placeholder="Enter email" />
+      <div id="email-error" style="color: #f88; min-height: 18px"></div>
+
+      <button class="otp-btn" type="button">Send OTP</button>
+
+      <div id="otp-container" style="margin-top: 20px"></div>
+      <div id="password-error"></div>
+    </form>
+
+    <script>
+      // --- Hard guards ---
+      document.addEventListener("submit", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          const el = document.activeElement;
+          if (el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA")) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+        }
+      });
+
+      let verificationToken = null;
+
+      // Mutation observer to debug container changes
+      const container = document.getElementById("otp-container");
+      if (container) {
+        const observer = new MutationObserver((mutations) => {
+          console.log("[MutationObserver] otp-container changed:", mutations);
+        });
+        observer.observe(container, { childList: true, subtree: true });
+      }
+
+      document
+        .querySelector(".otp-btn")
+        .addEventListener("click", handleSendOtp);
+
+      async function handleSendOtp(e) {
+        e.preventDefault();
+        const emailInput = document.getElementById("email");
+        const errorDiv = document.getElementById("email-error");
+        errorDiv.textContent = "";
+
+        const email = (emailInput.value || "").trim();
+        if (!email) {
+          errorDiv.textContent = "* required";
+          return;
+        }
+
+        try {
+          const res = await fetch("http://localhost:5000/api/send-otp", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email }),
+          });
+          const data = await res.json();
+
+          if (res.ok) {
+            errorDiv.textContent = "OTP sent to " + email;
+            console.log("OTP sent from backend:", data);
+            addOtpInput();
+            startOtpGuard();
+          } else {
+            errorDiv.textContent = data.message || "Failed to send OTP";
+          }
+        } catch (err) {
+          console.error(err);
+          errorDiv.textContent = "Error sending OTP. Check server.";
+        }
+      }
+
+      function addOtpInput() {
+        console.log("addOtpInput() rendering OTP input");
+        const container = document.getElementById("otp-container");
+        container.innerHTML = "";
+
+        const input = document.createElement("input");
+        input.type = "text";
+        input.placeholder = "Enter OTP";
+        input.maxLength = 6;
+        input.className = "input-otp";
+        input.inputMode = "numeric";
+        input.style.display = "block";
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.textContent = "Verify OTP";
+        button.className = "vfy-btn";
+        button.style.display = "block";
+        button.addEventListener("click", verifyOtp);
+
+        container.appendChild(input);
+        container.appendChild(button);
+      }
+
+      let otpGuardTimer = null;
+      function mountOtpUIIfMissing() {
+        const container = document.getElementById("otp-container");
+        if (container && !container.querySelector(".input-otp")) {
+          console.warn("OTP UI missing — remounting.");
+          addOtpInput();
+        }
+      }
+      function startOtpGuard() {
+        stopOtpGuard();
+        otpGuardTimer = setInterval(mountOtpUIIfMissing, 300);
+      }
+      function stopOtpGuard() {
+        if (otpGuardTimer) clearInterval(otpGuardTimer);
+        otpGuardTimer = null;
+      }
+
+      async function verifyOtp() {
+        stopOtpGuard();
+        const input = document.querySelector(".input-otp");
+        const enteredValue = (input?.value || "").trim();
+        const email = (document.getElementById("email")?.value || "").trim();
+
+        if (!enteredValue) {
+          alert("Please enter the OTP.");
+          return;
+        }
+
+        try {
+          const res = await fetch("http://localhost:5000/api/verify-otp", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, otp: enteredValue }),
+          });
+
+          const data = await res.json();
+
+          if (res.ok) {
+            verificationToken = data.verification_token;
+            alert("OTP verified successfully!");
+            showPasswordInputs();
+          } else {
+            alert(data.message || "OTP verification failed");
+          }
+        } catch (err) {
+          console.error(err);
+          alert("Error verifying OTP.");
+        }
+      }
+
+      // Show password input fields and signup button after OTP verification
+      function showPasswordInputs() {
+        const container = document.getElementById("otp-container");
+        container.innerHTML = "";
+
+        const passwordLabel = document.createElement("label");
+        passwordLabel.textContent = "Password:";
+        passwordLabel.setAttribute("for", "password");
+
+        const passwordInput = document.createElement("input");
+        passwordInput.type = "password";
+        passwordInput.id = "password";
+        passwordInput.placeholder = "Enter password";
+
+        const confirmLabel = document.createElement("label");
+        confirmLabel.textContent = "Confirm Password:";
+        confirmLabel.setAttribute("for", "confirm-password");
+
+        const confirmInput = document.createElement("input");
+        confirmInput.type = "password";
+        confirmInput.id = "confirm-password";
+        confirmInput.placeholder = "Confirm password";
+
+        const signupBtn = document.createElement("button");
+        signupBtn.type = "button";
+        signupBtn.textContent = "Create Account";
+        signupBtn.style.marginTop = "15px";
+        signupBtn.addEventListener("click", handleSignup);
+
+        container.appendChild(passwordLabel);
+        container.appendChild(passwordInput);
+        container.appendChild(confirmLabel);
+        container.appendChild(confirmInput);
+        container.appendChild(signupBtn);
+      }
+
+      async function handleSignup() {
+        const email = (document.getElementById("email")?.value || "").trim();
+        const password = (
+          document.getElementById("password")?.value || ""
+        ).trim();
+        const confirmPassword = (
+          document.getElementById("confirm-password")?.value || ""
+        ).trim();
+        const passwordErrorDiv = document.getElementById("password-error");
+        passwordErrorDiv.textContent = "";
+
+        if (!password || !confirmPassword) {
+          passwordErrorDiv.textContent =
+            "Please enter and confirm your password.";
+          return;
+        }
+        if (password !== confirmPassword) {
+          passwordErrorDiv.textContent = "Passwords do not match.";
+          return;
+        }
+        if (!verificationToken) {
+          passwordErrorDiv.textContent =
+            "Verification token missing. Please verify OTP again.";
+          return;
+        }
+
+        try {
+          const res = await fetch("http://localhost:5000/api/signup", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email,
+              password,
+              verification_token: verificationToken,
+            }),
+          });
+          const data = await res.json();
+
+          if (res.ok) {
+            alert("Signup successful! You can now log in.");
+            // Optionally clear the form or redirect
+            document.getElementById("signupForm").reset();
+            document.getElementById("otp-container").innerHTML = "";
+            verificationToken = null;
+          } else {
+            passwordErrorDiv.textContent = data.message || "Signup failed.";
+          }
+        } catch (err) {
+          console.error(err);
+          passwordErrorDiv.textContent = "Error during signup.";
+        }
+      }
+    </script>
+  </body>
+</html>

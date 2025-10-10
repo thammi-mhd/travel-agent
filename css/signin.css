@@ -1,0 +1,119 @@
+/* From Uiverse.io by ahmed150up */
+
+body {
+  display: flex;
+  justify-content: center;
+  background-image: url("../images/home_bg.jpg"); /* 🔁 Replace with your image path */
+  background-size: cover; /* Makes image cover the whole screen */
+  background-position: center; /* Keeps the image centered */
+  background-repeat: no-repeat; /* Prevents tiling */
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  color: rgba(255, 255, 255, 0.726);
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4); /* Dim the brightness */
+  z-index: 0;
+}
+
+a {
+  color: rgba(255, 255, 255);
+}
+
+.main-div {
+  align-items: center;
+  margin-top: 120px;
+  background-color: transparent;
+}
+
+.login-card {
+  width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: rgba(120, 117, 117, 0.05);
+  backdrop-filter: blur(3px);
+}
+
+.card-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.card-header .log {
+  margin: 0;
+  font-size: 24px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  font-size: 18px;
+  margin-bottom: 5px;
+  color: white;
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: 0.5s;
+  background-color: transparent;
+  cursor: pointer;
+  color: white;
+}
+
+input[type="email"]::placeholder,
+input[type="password"]::placeholder {
+  color: rgba(255, 255, 255, 0.726);
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+  width: 100%;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: 0.5s;
+  background-color: transparent;
+  cursor: pointer;
+  color: white;
+}
+
+input[type="submit"] {
+  width: 100%;
+  color: white;
+  font-weight: bold;
+  background-color: #333;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: solid;
+  border-color: rgba(255, 255, 255, 0.747);
+  border-width: 0.5px;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: transparent;
+  backdrop-filter: blur(15px);
+}
+
+input[type="submit"]:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}

@@ -1,0 +1,550 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url("../images/pexels-sinileunen-3791007.jpg"); /* replace with your actual image path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* optional: for parallax effect */
+  height: auto;
+  min-height: 100%;
+}
+
+/*
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: -1; /* changed from 0 to -1 */
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  padding: 10px 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 999;
+  height: 7%;
+  display: flex; /* Make nav and logo inline */
+  justify-content: space-between; /* Push left and right apart */
+  align-items: center; /* Vertically center items */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.logo a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-size: 24px;
+}
+nav ul li {
+  display: flex;
+  align-items: center;
+}
+
+nav ul li a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+.hmbrgr-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border: solid;
+  border-color: rgba(255, 255, 255, 0.262);
+  border-width: 0.5px;
+  border-radius: 6px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
+  background-color: transparent;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+}
+
+.hmbrgr-container:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.hmbrg-img {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+}
+
+.hmbrg-img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+}
+
+nav a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-size: 16px;
+  padding: 10px;
+  border: solid;
+  border-color: rgba(255, 255, 255, 0.262);
+  border-width: 0.5px;
+  border-radius: 6px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+/* Main section padding to avoid overlap with fixed header */
+main {
+  padding-top: 80px; /* leave space for fixed header */
+  padding-bottom: 60px; /* optional bottom padding */
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(3px);
+  color: white;
+  position: relative;
+  min-height: calc(100vh - 80px); /* full viewport height minus header */
+  overflow-x: hidden;
+}
+
+/* Hero section styling */
+.hero-section {
+  margin-top: 30px;
+  text-align: center;
+  padding: 50px 20px;
+  background-color: rgba(120, 117, 117, 0.05);
+  backdrop-filter: blur(3px);
+  border-radius: 12px;
+  max-width: 800px;
+  margin: 0 auto 40px auto;
+  cursor: pointer;
+  overflow: hidden; /* Important so icons disappear when leaving view */
+  position: relative; /* Needed for absolute positioning of icons */
+}
+
+.hero-head {
+  display: block;
+  margin-bottom: 30px;
+}
+
+.hero-icons {
+  position: relative;
+  height: 100px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.hero-text {
+  display: block;
+  margin-top: 50px;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 20px;
+}
+.hero-section h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.hero-section p {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.icon-container {
+  display: flex;
+  gap: 70px;
+  animation: scroll-left 20s linear infinite;
+}
+
+.icon-container img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  filter: invert(100%);
+  opacity: 0.5;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.icon-container img:hover {
+  transform: scale(1.15);
+  opacity: 1;
+  filter: invert(100%) drop-shadow(0 0 6px white);
+}
+
+/* Animation to slide the icons continuously */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.explore-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 0;
+}
+/* Call to Action button */
+.cta-button,
+.help-btn,
+.explore-btn,
+.trvl-agnt-btn {
+  display: inline-block;
+  padding: 12px 24px;
+  margin-top: 5px;
+  border: solid;
+  border-color: rgba(255, 255, 255, 0.262);
+  border-width: 0.5px;
+  border-radius: 6px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  font-weight: bold;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.cta-button:hover,
+.help-btn:hover,
+.explore-btn:hover,
+.trvl-agnt-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Features section */
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.feature-item {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  width: 300px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.feature-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.feature-item h2 {
+  margin-bottom: 12px;
+  font-size: 22px;
+}
+
+.feature-item p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Dropdown Container */
+.dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.dropdown-content {
+  display: none;
+  position: fixed;
+  width: 500px;
+  top: 60px;
+  right: 0;
+  margin-top: 9px;
+  background: rgba(30, 30, 30, 0.3); /* semi-transparent */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: none;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  border-right: none;
+  border-radius: 0 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+}
+/* Individual Items in Dropdown */
+.dropdown-content li {
+  list-style: none;
+  margin-left: 30px;
+  border-radius: 0 !important;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 10px 16px;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background-color 0.3s;
+  border-radius: 0 !important;
+}
+
+.dropdown-content a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-feature-div {
+  margin: 1%;
+  padding: 5px;
+}
+
+.airplane-img-container,
+.twntyfour-img-container,
+.deals-img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  height: 200px;
+}
+.flight-img,
+.package-img,
+.twntfour-img {
+  display: block;
+
+  height: auto;
+  opacity: 0.8;
+  margin-bottom: 50px;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.flight-img {
+  width: 250px;
+  height: auto;
+  filter: invert(100%);
+}
+.twntfour-img {
+  width: 300px;
+  height: auto;
+  filter: invert(100%);
+}
+.package-img {
+  width: 180px;
+  height: auto;
+  filter: invert(100%);
+}
+
+.text-content-container {
+  height: 100px;
+}
+
+.contact-list-container {
+  max-width: 1085px;
+  margin: 60px auto;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  border-radius: 12px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.contact-list-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+.contact-list-container h2 {
+  font-size: 28px;
+  margin-bottom: 25px;
+  padding: 12px 24px;
+  margin-top: 5px;
+  border: solid;
+  border-color: rgba(255, 255, 255, 0.262);
+  border-width: 0.5px;
+  border-radius: 6px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  font-weight: bold;
+  background-color: transparent;
+}
+
+.contact-list {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.contact-list li {
+  display: flex; /* Add this */
+  justify-content: center; /* Horizontally center */
+  align-items: center; /* Vertically center */
+
+  font-size: 14px;
+  flex: 1;
+  min-width: 150px;
+  padding: 12px 24px;
+  margin-top: 5px;
+  border: solid;
+  border-color: rgba(255, 255, 255, 0.262);
+  border-width: 0.5px;
+  border-radius: 6px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  font-weight: bold;
+  background-color: transparent;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    height: auto;
+    padding: 10px 15px;
+  }
+
+  nav ul {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .logo a {
+    font-size: 20px;
+  }
+
+  .hero-section h1 {
+    font-size: 32px;
+  }
+
+  .hero-section p {
+    font-size: 16px;
+  }
+
+  .features {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .feature-item {
+    width: 90%;
+  }
+
+  .airplane-img,
+  .twntfour-img,
+  .deals-img {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+  }
+
+  .contact-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contact-list li {
+    min-width: unset;
+    width: 80%;
+    display: flex; /* Add this */
+    justify-content: center; /* Horizontally center */
+    align-items: center; /* Vertically center */
+
+    font-size: 14px;
+    flex: 1;
+    min-width: 150px;
+    padding: 12px 24px;
+    margin-top: 5px;
+    border: solid;
+    border-color: rgba(255, 255, 255, 0.262);
+    border-width: 0.5px;
+    border-radius: 6px;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.718);
+    text-decoration: none;
+    transition: background-color 0.3s;
+    font-weight: bold;
+    background-color: transparent;
+    text-align: center;
+  }
+
+  .dropdown-content {
+    width: 100vw;
+    right: 0;
+    top: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section h1 {
+    font-size: 24px;
+  }
+
+  .hero-section p {
+    font-size: 14px;
+  }
+
+  nav a {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .cta-button,
+  .help-btn,
+  .deals-btn,
+  .trvl-agnt-btn {
+    padding: 10px 18px;
+    font-size: 14px;
+  }
+
+  .contact-list-container h2 {
+    font-size: 20px;
+  }
+}
+
+.me-text {
+  display: block;
+  font-size: 16px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.9);
+}
+.me-img {
+  display: block;
+  width: 100px;
+  height: auto;
+  opacity: 0.8;
+  margin-bottom: 50px;
+  margin-top: 20px;
+  border-radius: 10px;
+}
