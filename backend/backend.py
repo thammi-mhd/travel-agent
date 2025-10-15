@@ -7,7 +7,8 @@ import google.generativeai as genai
 GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
 
 def initialize_gemini():
-    api_key = os.environ.get("gen_ai") or "AIzaSyBskViWF_EdL13ydLPL98nheO5PkjCVnr0"
+    #set the api key in the environment as environment variable named as gen_ai
+    api_key = os.environ.get("gen_ai") 
     if not api_key:
         raise RuntimeError("GEMINI_API_KEY is not set")
     genai.configure(api_key=api_key)
